@@ -105,7 +105,7 @@ class TestRailMCPServer(FastMCP):
             return self.client.get_case(case_id)
         
         @self.tool("get_cases", description="Get all test cases for a project/suite")
-        def get_cases(project_id: int, suite_id: Optional[int] = None) -> List[Dict]:
+        def get_cases(project_id: int, suite_id: Optional[int] = None, search_term: str = None) -> List[Dict]:
             """
             Get all test cases for a project/suite.
             
@@ -113,8 +113,19 @@ class TestRailMCPServer(FastMCP):
                 project_id: The ID of the project
                 suite_id: The ID of the test suite (optional)
             """
-            return self.client.get_cases(project_id, suite_id)
-        
+
+            result = self.client.get_cases(project_id, suite_id)
+            cases = result["cases"];
+
+            if search_term:
+                return list(
+                    filter(
+                        lambda case: search_term.lower() in case["title"].lower(), list(cases)
+                    )
+                )
+
+            return cases
+
         @self.tool("add_case", description="Add a new test case")
         def add_case(
             section_id: int,
