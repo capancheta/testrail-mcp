@@ -115,7 +115,7 @@ class TestRailMCPServer(FastMCP):
             """
 
             result = self.client.get_cases(project_id, suite_id)
-            cases = result["cases"];
+            cases = result["cases"]
 
             if search_term:
                 return list(
