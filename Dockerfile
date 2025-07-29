@@ -16,4 +16,5 @@ RUN pip install --no-cache-dir --upgrade pip hatchling
 # Install the package in editable mode
 RUN pip install -e .
 
-CMD ["python", "testrail_mcp/__main__.py"]
+ENTRYPOINT ["python", "testrail_mcp/__main__.py"]
+CMD [""]
